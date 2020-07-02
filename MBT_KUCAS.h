@@ -1,6 +1,6 @@
 /********************************************************************************
  * @file   MBT_KUCAS.h								*
- * @date   25th JUN 2020							*
+ * @date   29th JUN 2020							*
  * @author Sukkeun Samuel Kim(samkim96@pusan.ac.kr)				*
  * @brief  Software for the KUCAS Project 2020 flight tests, main Header	*
  *******************************************************************************/

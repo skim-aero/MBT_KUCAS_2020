@@ -1,6 +1,6 @@
 /********************************************************************************
  * @file   MBT_KUCAS.cpp							*
- * @date   25th JUN 2020							*
+ * @date   29th JUN 2020							*
  * @author Sukkeun Samuel Kim(samkim96@pusan.ac.kr)				*
  * @brief  Software for the KUCAS Project 2020 flight tests, main Header	*
  *******************************************************************************/
@@ -55,7 +55,6 @@ int main( int argc, char **argv )
     display->init( I, 100, 100, "MBT_KUCAS" );
 
     vpMbGenericTracker tracker;				// vpMbGenericTracker class define
-    //vpVideoWriter writer;
 
     tracker.loadModel( objectname + ".cao" );		// Load cao file
     tracker.loadConfigFile( objectname + ".xml" );	// Load xml file
@@ -63,10 +62,6 @@ int main( int argc, char **argv )
     //tracker.initClick( I, objectname + ".init", true );	// Initial Point Click at here
     tracker.initFromPoints( I, objectname + ".init");	
     std::ofstream fp( "results.txt" );			// Text out
-
-    //writer.setCodec( cv::VideoWriter::fourcc( 'F', 'M', 'P', '4' ) ); // MPEG-1 codec
-    //writer.setFileName( "MBT_RESULT.avi" );
-    //writer.open(I);
 
     /**************************Initial Setting for VISP*************************/
 
@@ -111,7 +106,7 @@ int main( int argc, char **argv )
 	vpDisplay::display( I );
 
 	tracker.getPose( cMo );				// Get Pose
-	for ( int i = 0; i < 16; i++ )
+	for ( int i = 0; i < 16; ++i )
 	{
 	    fp << cMo.data[i] << "  ";
 	}
@@ -121,12 +116,9 @@ int main( int argc, char **argv )
 
 	// Display
 	tracker.display( I, cMo, cam, vpColor::green, 2, true );
-	//writer.saveFrame( I );
 	vpDisplay::flush( I );
-	//vpImageConvert::convert( I, src_bgr );
+
 	++n;
-
-
 
 	if ( vpDisplay::getClick( I, false ) || cv::waitKey( 1 ) == 27 ) break;
     }

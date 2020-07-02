@@ -1,6 +1,6 @@
 /********************************************************************************
  * @file   VidProc.h								*
- * @date   25th JUN 2020							*
+ * @date   29th JUN 2020							*
  * @author Sukkeun Samuel Kim(samkim96@pusan.ac.kr)				*
  * @brief  Software for the KUCAS Project 2020 flight tests, video processing	*
  *******************************************************************************/
@@ -12,6 +12,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <cmath>
 
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui.hpp>

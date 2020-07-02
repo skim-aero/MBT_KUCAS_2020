@@ -1,6 +1,6 @@
 /********************************************************************************
  * @file   VidProc.cpp								*
- * @date   25th JUN 2020							*
+ * @date   2nd JUL 2020								*
  * @author Sukkeun Samuel Kim(samkim96@pusan.ac.kr)				*
  * @brief  Software for the KUCAS Project 2020 flight tests, Video Processing	*
  *******************************************************************************/
@@ -22,9 +22,9 @@ void HarrisCo( int, void*, cv::Mat &input )
     cv::Mat dst, dst_norm, dst_norm_scaled;
     dst = cv::Mat::zeros( src.size(), CV_32FC1 );
 
-    int blockSize = 2; // 2
-    int apertureSize = 3;  // 2
-    double k = 0.04;  // 0.04
+    int blockSize = 2;						// 2
+    int apertureSize = 3;					// 3
+    double k = 0.08;						// 0.04(after 0.07)
     int right = left + width;
     int bottom = top + height;
     int l = 0;
@@ -68,21 +68,24 @@ void HarrisCo( int, void*, cv::Mat &input )
 	}
     }
 
+    corner[4][1] = ( left + right ) / 2;
+    corner[4][0] = ( top + bottom ) / 2;
+
     corner[0][1] = point[0][0];
     for ( int i = 0; i < l; ++i )
     {
 	if ( corner[0][1] < point[i][0] ) 
 	{
-	    int j = i - 1;
 	    corner[0][1] = point[i][0];
 	    corner[0][0] = point[i][1];
 	}
     }
 
     corner[2][1] = point[0][0];
+    corner[2][0] = point[0][1];
     for ( int i = 0; i < l; ++i )
     {
-	if ( corner[2][1] < point[i][0] && point[i][0] < corner[0][1] - 30 ) 
+	if ( corner[2][1] < point[i][0] && point[i][0] < corner[0][1] - 30 )
 	{
 	    corner[2][1] = point[i][0];
 	    corner[2][0] = point[i][1];
@@ -94,31 +97,27 @@ void HarrisCo( int, void*, cv::Mat &input )
     {
 	if ( corner[1][1] > point[i][0] ) 
 	{
-	    int j = i + 1;
 	    corner[1][1] = point[i][0];
 	    corner[1][0] = point[i][1];
 	}
     }
 
     corner[3][1] = point[20][0];
+    corner[3][0] = point[20][1];
     for ( int i = l - 1; i > 0; --i )
     {
-	if ( corner[3][1] > point[i][0] && point[i][0] > corner[1][1] + 30 ) 
+	if ( corner[3][1] > point[i][0] && point[i][0] > corner[1][1] + 30 )
 	{
 	    corner[3][1] = point[i][0];
 	    corner[3][0] = point[i][1];
-
 	}
     }
 
-    corner[4][1] = ( left + right ) / 2;
-    corner[4][0] = ( top + bottom ) / 2;
-/*
     for ( int i = 0; i < l; ++i )
     {
 	delete [] point[i];
     }
-    delete [] point;*/
+    delete [] point;
 }
 
 void UpdPoint( double ts, double te, cv::Mat &input )
