@@ -10,7 +10,7 @@
 int main( int argc, char **argv )
 {
     cv::VideoCapture cap( argv[1] );			// Imput video with OpenCV
-    //cv::VideoWriter video( "MBT_RESULT.avi", cv::VideoWriter::fourcc( 'F', 'M', 'P', '4' ), 22.0, cv::Size( 1920, 1080 ) );
+    cv::VideoWriter video( "MBT_RESULT.avi", cv::VideoWriter::fourcc( 'F', 'M', 'P', '4' ), 22.0, cv::Size( 1920, 1080 ) );
 
     /**************************Initial Setting for DNN**************************/
 
@@ -32,7 +32,7 @@ int main( int argc, char **argv )
 
     /************************Initial Setting for VISP***************************/
     std::string opt_videoname = "KUCAS.mp4";
-    std::string opt_modelname = "KUCAS.cao";
+    std::string opt_modelname = "CTSW.cao";
     std::string parentname = vpIoTools::getParent( opt_modelname );
     std::string objectname = vpIoTools::getNameWE( opt_modelname );
 
@@ -57,10 +57,11 @@ int main( int argc, char **argv )
     vpMbGenericTracker tracker;				// vpMbGenericTracker class define
 
     tracker.loadModel( objectname + ".cao" );		// Load cao file
-    tracker.loadConfigFile( objectname + ".xml" );	// Load xml file
+    //tracker.loadConfigFile( objectname + ".xml" );	// Load xml file
+    tracker.loadConfigFile( "KUCAS.xml" );	// Load xml file
 
-    //tracker.initClick( I, objectname + ".init", true );	// Initial Point Click at here
-    tracker.initFromPoints( I, objectname + ".init");	
+    tracker.initClick( I, objectname + ".init", true );	// Initial Point Click at here
+    //tracker.initFromPoints( I, objectname + ".init");	
     std::ofstream fp( "results.txt" );			// Text out
 
     /**************************Initial Setting for VISP*************************/
@@ -83,7 +84,7 @@ int main( int argc, char **argv )
 	cv::Mat src_dnn = src.clone();
 
 	// Preprocessing for Harris corner, binarization/thresholding/morphological process, defined in VidProc.cpp
-	PreProc( src, src_hist, 15, 45 );
+	PreProc( src, src_hist, 15, 45 );	// 15, 45 (Previous one), 15, 30 for new case
 
 	// Deep Learing based object detection, dfined in DetecObj.cpp
 	dnndetect( net, src_dnn, blob, classes );

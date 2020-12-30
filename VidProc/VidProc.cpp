@@ -11,8 +11,8 @@ void PreProc( cv::Mat& mat_in, cv::Mat& mat_out, const double thres_l, const dou
 {
     cv::cvtColor( mat_in, mat_in, cv::COLOR_BGR2GRAY);
     cv::equalizeHist( mat_in, mat_in);    
-    cv::adaptiveThreshold( mat_in, mat_in, 255, cv::ADAPTIVE_THRESH_MEAN_C, cv::THRESH_BINARY, thres_l, thres_h);
-    cv::Mat mask = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(2, 2), cv::Point(1, 1));
+    cv::adaptiveThreshold( mat_in, mat_in, 255, cv::ADAPTIVE_THRESH_MEAN_C, cv::THRESH_BINARY, thres_l, thres_h );
+    cv::Mat mask = cv::getStructuringElement( cv::MORPH_ELLIPSE, cv::Size( 2, 2 ), cv::Point( 1, 1 ) );
     cv::morphologyEx( mat_in, mat_out, cv::MorphTypes::MORPH_CLOSE, mask );
     //cv::cvtColor( mat_in, mat_in, cv::COLOR_GRAY2BG R); //Grey to BGR for video write
 }
@@ -24,7 +24,7 @@ void HarrisCo( int, void*, cv::Mat &input )
 
     int blockSize = 2;						// 2
     int apertureSize = 3;					// 3
-    double k = 0.08;						// 0.04(after 0.07)
+    double k = 0.08;						// 0.04(after 0.08)
     int right = left + width;
     int bottom = top + height;
     int l = 0;
@@ -106,7 +106,7 @@ void HarrisCo( int, void*, cv::Mat &input )
     corner[3][0] = point[20][1];
     for ( int i = l - 1; i > 0; --i )
     {
-	if ( corner[3][1] > point[i][0] && point[i][0] > corner[1][1] + 30 )
+	if ( corner[3][1] > point[i][0] && point[i][0] > corner[1][1] + 30)
 	{
 	    corner[3][1] = point[i][0];
 	    corner[3][0] = point[i][1];
