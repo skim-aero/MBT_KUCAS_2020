@@ -12,10 +12,9 @@
   
 * 2020.12.30 Beta 1.3.1 Version: Alternative version of 1.3
 
-## Version Information
+## Installation and usages
 
 Find below link for installation:
 * [Installation](https://github.com/skim-aero/ICT_2020)
 
 ***
-
